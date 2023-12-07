@@ -29,21 +29,41 @@ export class DarkHeresyActor extends Actor {
         this._computeMovement();
     }
 
-    _computeCharacteristics() {
-        let middle = Object.values(this.characteristics).length / 2;
-        let i = 0;
-        for (let characteristic of Object.values(this.characteristics)) {
-            characteristic.total = characteristic.base + characteristic.advance;
+
+_computeCharacteristics() {
+    let middle = Object.values(this.characteristics).length / 2;
+    let i = 0;
+
+    for (let characteristic of Object.values(this.characteristics)) {
+        characteristic.total = characteristic.base + characteristic.advance;
+
+        // Check for the presence of '*' within characteristic.unnatural
+        if (characteristic.unnatural.includes('*')) {
+            characteristic.bonus = Math.floor(characteristic.total / 10) * characteristic.unnatural.replace('*', '');
+        } else {
+            // Default to '+' if '*' is not present
             characteristic.bonus = Math.floor(characteristic.total / 10) + characteristic.unnatural;
-            if (this.fatigue.value > characteristic.bonus) {
-                characteristic.total = Math.ceil(characteristic.total / 2);
+        }
+
+        if (this.fatigue.value > characteristic.bonus) {
+            characteristic.total = Math.ceil(characteristic.total / 2);
+
+            // Check for the presence of '*' within characteristic.unnatural
+            if (characteristic.unnatural.includes('*')) {
+                characteristic.bonus = Math.floor(characteristic.total / 10) * characteristic.unnatural.replace('*', '');
+            } else {
+                // Default to '+' if '*' is not present
                 characteristic.bonus = Math.floor(characteristic.total / 10) + characteristic.unnatural;
             }
-            characteristic.isLeft = i < middle;
-            characteristic.isRight = i >= middle;
-            characteristic.advanceCharacteristic = this._getAdvanceCharacteristic(characteristic.advance);
-            i++;
         }
+
+        characteristic.isLeft = i < middle;
+        characteristic.isRight = i >= middle;
+        characteristic.advanceCharacteristic = this._getAdvanceCharacteristic(characteristic.advance);
+
+        i++;
+    }
+}
         this.system.insanityBonus = Math.floor(this.insanity / 10);
         this.system.corruptionBonus = Math.floor(this.corruption / 10);
         this.psy.currentRating = this.psy.rating - this.psy.sustained;
