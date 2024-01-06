@@ -68,7 +68,7 @@
   "secondaryTokenAttribute": null,
   "url": "https://github.com/devopsintern2022/DarkHeresy2E-FoundryVTT/tree/master",
   "socket": true,
-  "manifest": "https://github.com/devopsintern2022/DarkHeresy2E-FoundryVTT/blob/master/system.json",
-  "download": "https://github.com/devopsintern2022/DarkHeresy2E-FoundryVTT/releases/download/4.2.7/dark-heresy.zip",
+  "manifest": "https://github.com/devopsintern2022/DarkHeresy2E-FoundryVTT/releases/4.2.8/system.json",
+  "download": "https://github.com/devopsintern2022/DarkHeresy2E-FoundryVTT/releases/4.2.8/dark-heresy.zip",
   "license": "LICENSE.txt"
 }
